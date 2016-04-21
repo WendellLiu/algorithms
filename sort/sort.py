@@ -63,3 +63,10 @@ def merge(sorted_l, sorted_r, asc):
             result[i:] = sorted_l[l_index:] if r_index == len(sorted_r) else sorted_r[r_index:]
             return result
 
+def bubble_sort(array, asc=True):
+    for i in xrange(len(array)):
+        for j in xrange(len(array)-1-i):
+            if (array[j] > array[j+1]) == asc:
+                array[j], array[j+1] = array[j+1], array[j]
+    return array
+
