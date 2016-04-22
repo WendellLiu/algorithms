@@ -5,3 +5,6 @@
 1. insertion sort
 1. merge sort
 1. bubble sort
+
+## divide-and-conquer
+1. maximum subarray
