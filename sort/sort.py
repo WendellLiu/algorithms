@@ -1,10 +1,17 @@
-def quick_sort(array, asc=True):
+import random
+
+def quick_sort(array, asc=True, rand=True):
     begin = 0
     end = len(array)-1
     if len(array) < 2:
         return array
 
     pivot = begin
+
+    if rand:
+        random_index = random.choice(range(len(array)))
+        array[begin], array[random_index] = array[random_index], array[begin]
+
     for j in xrange(begin+1, end+1):
         if (array[j] <= array[begin]) == asc:
             pivot +=1
@@ -12,8 +19,8 @@ def quick_sort(array, asc=True):
 
     array[pivot], array[begin] = array[begin], array[pivot]
 
-    left_list = quick_sort(array[begin:pivot], asc)
-    right_list = quick_sort(array[pivot+1: end+1], asc)
+    left_list = quick_sort(array[begin:pivot], asc, rand)
+    right_list = quick_sort(array[pivot+1: end+1], asc, rand)
 
     return left_list + [array[pivot]] + right_list
 
@@ -119,3 +126,4 @@ def heap_sort(array):
         array = max_heapify(array, 0)
 
     return array
+
