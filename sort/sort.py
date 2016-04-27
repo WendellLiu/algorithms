@@ -70,3 +70,52 @@ def bubble_sort(array, asc=True):
                 array[j], array[j+1] = array[j+1], array[j]
     return array
 
+def heap_left(i):
+    return (2*(i+1))-1
+
+def heap_right(i):
+    return (2*(i+1)+1)-1
+
+class heaped_list(list):
+    def __init__(self, *args):
+        super(heaped_list, self).__init__(*args)
+        self.heap_size = len(self)
+
+def max_heapify(array, i):
+    l = heap_left(i)
+    r = heap_right(i)
+
+    if l < array.heap_size and array[i] < array[l]:
+        largest = l
+    else:
+        largest = i
+    if r < array.heap_size and array[largest] < array[r]:
+        largest = r
+
+    if largest != i:
+        array[i], array[largest] = array[largest], array[i]
+
+        array = max_heapify(array, largest)
+    return array
+
+def build_max_heap(array):
+    """
+    guaruntee the root of heaped array is the maximum
+    """
+    start = (array.heap_size)/2 -1
+    for i in xrange(start, -1, -1):
+        array = max_heapify(array, i)
+
+    return array
+
+def heap_sort(array):
+    array = heaped_list(array)
+    array = build_max_heap(array)
+    start = len(array)-1
+    end = 1
+    for i in xrange(start, end-1, -1):
+        array[0], array[i] = array[i], array[0]
+        array.heap_size -= 1
+        array = max_heapify(array, 0)
+
+    return array
